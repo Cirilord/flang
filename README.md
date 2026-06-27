@@ -15,6 +15,7 @@ The transpiler project itself is bootstrapped with TypeScript.
 The repository currently includes:
 
 - TypeScript for the transpiler implementation
+- `cac` for the command-line interface
 - ESLint for linting
 - Prettier for formatting
 - Lefthook for pre-commit hooks
@@ -22,6 +23,7 @@ The repository currently includes:
 
 The initial source layout is:
 
+- `src/cli/`
 - `src/`
 
 Available scripts:
@@ -32,6 +34,34 @@ Available scripts:
 - `yarn format`
 - `yarn lint`
 - `yarn type-check`
+
+## CLI
+
+The initial CLI is implemented with `cac`.
+
+Current command:
+
+```text
+f compile <input>
+```
+
+Supported options:
+
+```text
+--target <target>
+--tool <tool>
+--output <output>
+--transpile-only
+```
+
+The first CLI version only defines the command surface. The compile action is currently a stub until the transpilation pipeline is specified by later specs.
+
+Current examples:
+
+```text
+f compile program.f --target c --tool clang --output bin/program
+f compile program.f --target c --output generated/program.c --transpile-only
+```
 
 ## Workflow
 
