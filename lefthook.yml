@@ -12,6 +12,11 @@ pre-commit:
         DOTENV_CONFIG_PATH: .env
       run: ./node_modules/.bin/eslint --fix {staged_files}
       stage_fixed: true
+    test:
+      glob: '{src,examples}/**/*.{ts,tsx,f}'
+      env:
+        DOTENV_CONFIG_PATH: .env
+      run: node --experimental-vm-modules ./node_modules/.bin/jest --watchman=false
     type-check:
       glob: 'src/**/*.{ts,tsx}'
       env:

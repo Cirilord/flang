@@ -16,6 +16,7 @@ The repository currently includes:
 
 - TypeScript for the transpiler implementation
 - `cac` for the command-line interface
+- Jest with `ts-jest` for automated tests
 - ESLint for linting
 - Prettier for formatting
 - Lefthook for pre-commit hooks
@@ -34,6 +35,7 @@ Available scripts:
 - `yarn build`
 - `yarn start`
 - `yarn start:dev`
+- `yarn test`
 - `yarn format`
 - `yarn lint`
 - `yarn type-check`
@@ -74,6 +76,12 @@ Repository example source:
 examples/variables.f
 ```
 
+Repository example test:
+
+```text
+examples/variables.spec.ts
+```
+
 Current lexer example source:
 
 ```text
@@ -98,3 +106,13 @@ Implementation work should follow this order:
 2. Refine the spec until the design is aligned.
 3. Approve the spec.
 4. Implement the change.
+
+## Tests
+
+Run the current automated tests with:
+
+```text
+yarn test
+```
+
+The first test suite validates the lexer behavior against `examples/variables.f`.
