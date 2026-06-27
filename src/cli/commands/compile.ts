@@ -1,3 +1,8 @@
+import { readFileSync } from 'node:fs';
+
+import { LexerError } from '../../lexer/errors.js';
+import { Lexer } from '../../lexer/index.js';
+
 export type CompileCommandOptions = {
   output?: string;
   target?: string;
@@ -22,18 +27,34 @@ export function runCompileCommand(input: string | undefined, options: CompileCom
     throw new Error('The --tool option is required unless --transpile-only is used.');
   }
 
-  console.log('The compile command is not implemented yet.');
-  console.log(
-    JSON.stringify(
-      {
-        input,
-        output: options.output,
-        target: options.target,
-        tool: options.tool,
-        transpileOnly: options.transpileOnly ?? false,
-      },
-      null,
-      2
-    )
-  );
+  const source: string = readFileSync(input, 'utf8');
+
+  try {
+    const tokens = new Lexer(source).tokenize();
+
+    console.log('The compile command is not implemented beyond lexical analysis yet.');
+    console.log(
+      JSON.stringify(
+        {
+          input,
+          output: options.output,
+          target: options.target,
+          tokens,
+          tokenCount: tokens.length,
+          tool: options.tool,
+          transpileOnly: options.transpileOnly ?? false,
+        },
+        null,
+        2
+      )
+    );
+  } catch (error: unknown) {
+    if (error instanceof LexerError) {
+      throw new Error(
+        `Lexical analysis failed at line ${error.location.start.line}, column ${error.location.start.column}: ${error.message}`
+      );
+    }
+
+    throw error;
+  }
 }

@@ -25,6 +25,9 @@ The initial source layout is:
 
 - `src/cli/`
 - `src/`
+- `examples/`
+
+The current lexer structure lives under `src/lexer/` and is split across token definitions, keyword lookup, lexer errors, and the lexer implementation.
 
 Available scripts:
 
@@ -54,13 +57,29 @@ Supported options:
 --transpile-only
 ```
 
-The first CLI version only defines the command surface. The compile action is currently a stub until the transpilation pipeline is specified by later specs.
+The current CLI already reads the input `.f` file and runs lexical analysis as the first stage of the compile flow.
+
+The command still stops after lexing for now, and it prints the generated tokens for inspection. Parsing, transpilation, and native compilation will be added by later specs.
 
 Current examples:
 
 ```text
 f compile program.f --target c --tool clang --output bin/program
 f compile program.f --target c --output generated/program.c --transpile-only
+```
+
+Repository example source:
+
+```text
+examples/variables.f
+```
+
+Current lexer example source:
+
+```text
+const positive = 1;
+const zero = 0;
+let decimal = 3.14;
 ```
 
 ## Workflow
