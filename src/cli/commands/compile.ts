@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 
 import { LexerError } from '../../lexer/errors.js';
 import { Lexer } from '../../lexer/index.js';
+import { ParserError } from '../../parser/errors.js';
+import { Parser } from '../../parser/index.js';
 
 export type CompileCommandOptions = {
   output?: string;
@@ -31,11 +33,13 @@ export function runCompileCommand(input: string | undefined, options: CompileCom
 
   try {
     const tokens = new Lexer(source).tokenize();
+    const ast = new Parser(tokens).parseProgram();
 
-    console.log('The compile command is not implemented beyond lexical analysis yet.');
+    console.log('The compile command is not implemented beyond parsing yet.');
     console.log(
       JSON.stringify(
         {
+          ast,
           input,
           output: options.output,
           target: options.target,
@@ -52,6 +56,12 @@ export function runCompileCommand(input: string | undefined, options: CompileCom
     if (error instanceof LexerError) {
       throw new Error(
         `Lexical analysis failed at line ${error.location.start.line}, column ${error.location.start.column}: ${error.message}`
+      );
+    }
+
+    if (error instanceof ParserError) {
+      throw new Error(
+        `Parsing failed at line ${error.location.start.line}, column ${error.location.start.column}: ${error.message}`
       );
     }
 

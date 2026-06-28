@@ -30,6 +30,8 @@ The initial source layout is:
 
 The current lexer structure lives under `src/lexer/` and is split across token definitions, keyword lookup, lexer errors, and the lexer implementation.
 
+The current parser foundation lives under `src/parser/` and is split across AST types, parser errors, and the parser implementation.
+
 Available scripts:
 
 - `yarn build`
@@ -59,9 +61,9 @@ Supported options:
 --transpile-only
 ```
 
-The current CLI already reads the input `.f` file and runs lexical analysis as the first stage of the compile flow.
+The current CLI already reads the input `.f` file, runs lexical analysis, and then builds the first parser AST for the source.
 
-The command still stops after lexing for now, and it prints the generated tokens for inspection. Parsing, transpilation, and native compilation will be added by later specs.
+The command still stops after parsing for now, and it prints the generated tokens and AST for inspection. Transpilation and native compilation will be added by later specs.
 
 Current examples:
 
@@ -115,4 +117,4 @@ Run the current automated tests with:
 yarn test
 ```
 
-The first test suite validates the lexer behavior against `examples/variables.f`.
+The first test suite validates the lexer and parser behavior against `examples/variables.f`.
