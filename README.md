@@ -87,10 +87,12 @@ examples/variables.spec.ts
 Current lexer example source:
 
 ```text
-const positive = 1;
-const zero = 0;
-let decimal = 3.14;
+const positive: i32 = 1;
+const zero: u32 = 0;
+let decimal: f64 = 3.14;
 ```
+
+The current parser requires explicit variable type annotations and preserves the declared type in the AST.
 
 ## Workflow
 

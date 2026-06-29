@@ -1,7 +1,14 @@
 import { ParserError } from './errors.js';
+import { SUPPORTED_TYPE_NAMES } from './type-names.js';
 import { TokenType } from '../lexer/token-type.js';
 import type { Token, TokenLocation } from '../lexer/token.js';
-import type { IdentifierNode, NumberLiteralNode, ProgramNode, VariableDeclarationNode } from './ast/index.js';
+import type {
+  IdentifierNode,
+  NamedTypeNode,
+  NumberLiteralNode,
+  ProgramNode,
+  VariableDeclarationNode,
+} from './ast/index.js';
 
 export class Parser {
   private index: number;
@@ -70,6 +77,14 @@ export class Parser {
     };
   }
 
+  private createNamedTypeNode(token: Token): NamedTypeNode {
+    return {
+      kind: 'NamedType',
+      location: token.location,
+      name: token.lexeme,
+    };
+  }
+
   private createNumberLiteralNode(token: Token): NumberLiteralNode {
     return {
       kind: 'NumberLiteral',
@@ -99,7 +114,10 @@ export class Parser {
       TokenType.Identifier,
       'Expected an identifier after the declaration keyword.'
     );
-    this.consume(TokenType.Equal, 'Expected "=" after the variable name.');
+    this.consume(TokenType.Colon, 'Expected ":" after the variable name.');
+    const declaredTypeToken: Token = this.consume(TokenType.Identifier, 'Expected a type name after ":".');
+    this.validateTypeName(declaredTypeToken);
+    this.consume(TokenType.Equal, 'Expected "=" after the type annotation.');
     const initializerToken: Token = this.consume(
       TokenType.NumberLiteral,
       'Expected a number literal as the initializer.'
@@ -107,6 +125,7 @@ export class Parser {
     const semicolonToken: Token = this.consume(TokenType.Semicolon, 'Expected ";" after the variable declaration.');
 
     return {
+      declaredType: this.createNamedTypeNode(declaredTypeToken),
       initializer: this.createNumberLiteralNode(initializerToken),
       kind: 'VariableDeclaration',
       location: this.mergeLocations(mutabilityToken.location, semicolonToken.location),
@@ -121,5 +140,13 @@ export class Parser {
 
   private previous(): Token {
     return this.tokens[this.index - 1] ?? this.createUnexpectedTokenError();
+  }
+
+  private validateTypeName(token: Token): void {
+    if (SUPPORTED_TYPE_NAMES.has(token.lexeme)) {
+      return;
+    }
+
+    throw new ParserError(`Unsupported type annotation "${token.lexeme}".`, token.location);
   }
 }

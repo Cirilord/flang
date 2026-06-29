@@ -1,4 +1,5 @@
 export enum TokenType {
+  Colon = 'Colon',
   Const = 'Const',
   EOF = 'EOF',
   Equal = 'Equal',
