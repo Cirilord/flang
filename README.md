@@ -94,6 +94,12 @@ let decimal: f64 = 3.14;
 
 The current parser requires explicit variable type annotations and preserves the declared type in the AST.
 
+## Documentation
+
+- `docs/language.md` for the general language overview
+- `docs/variables.md` for variable declarations and type annotation rules
+- `docs/improvements.md` for planned language improvements
+
 ## Workflow
 
 Every implementation must start with a spec stored in `.specs/`.
