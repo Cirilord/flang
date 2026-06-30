@@ -1,12 +1,10 @@
 import type { BaseNode } from './base-node.js';
-import type { ExpressionNode } from './expression-node.js';
 import type { IdentifierNode } from './identifier-node.js';
 import type { NamedTypeNode } from './named-type-node.js';
 
-export type VariableDeclarationNode = BaseNode & {
+export type FunctionParameterNode = BaseNode & {
   declaredType: NamedTypeNode;
-  initializer: ExpressionNode;
-  kind: 'VariableDeclaration';
+  kind: 'FunctionParameter';
   mutability: 'const' | 'let';
   name: IdentifierNode;
 };

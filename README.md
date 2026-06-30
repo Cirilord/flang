@@ -72,27 +72,59 @@ f compile program.f --target c --tool clang --output bin/program
 f compile program.f --target c --output generated/program.c --transpile-only
 ```
 
-Repository example source:
+Repository variable example source:
 
 ```text
 examples/variables.f
 ```
 
-Repository example test:
+Repository variable example test:
 
 ```text
 examples/variables.spec.ts
 ```
 
-Current lexer example source:
+Repository function example source:
 
 ```text
-const positive: i32 = 1;
-const zero: u32 = 0;
-let decimal: f64 = 3.14;
+examples/functions.f
 ```
 
-The current parser requires explicit variable type annotations and preserves the declared type in the AST.
+Repository function example test:
+
+```text
+examples/functions.spec.ts
+```
+
+Current function example source:
+
+```text
+fn pickValue(let value: i32, const fallback: i32): i32 {
+  return value;
+}
+
+fn logValue(let value: i32): void {
+  return;
+}
+
+fn main(): void {
+  const result: i32 = pickValue(1, 2);
+  return;
+}
+```
+
+The current parser supports function declarations, parameter mutability, explicit return types, `return` statements, simple function calls, and explicit variable type annotations inside function bodies.
+
+Current variable example source:
+
+```text
+fn main(): void {
+  const positive: i32 = 1;
+  const zero: u32 = 0;
+  let decimal: f64 = 3.14;
+  return;
+}
+```
 
 ## Documentation
 
@@ -125,4 +157,4 @@ Run the current automated tests with:
 yarn test
 ```
 
-The first test suite validates the lexer and parser behavior against `examples/variables.f`.
+The current example test suites validate the lexer and parser behavior against `examples/functions.f` and `examples/variables.f`.

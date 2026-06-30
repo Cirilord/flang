@@ -1,6 +1,13 @@
 export type { BaseNode } from './base-node.js';
+export type { BlockStatementNode } from './block-statement-node.js';
+export type { CallExpressionNode } from './call-expression-node.js';
+export type { ExpressionNode } from './expression-node.js';
+export type { FunctionDeclarationNode } from './function-declaration-node.js';
+export type { FunctionParameterNode } from './function-parameter-node.js';
 export type { IdentifierNode } from './identifier-node.js';
+export type { IdentifierReferenceNode } from './identifier-reference-node.js';
 export type { NamedTypeNode } from './named-type-node.js';
 export type { NumberLiteralNode } from './number-literal-node.js';
 export type { ProgramNode } from './program-node.js';
+export type { ReturnStatementNode } from './return-statement-node.js';
 export type { VariableDeclarationNode } from './variable-declaration-node.js';

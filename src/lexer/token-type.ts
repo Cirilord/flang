@@ -1,10 +1,17 @@
 export enum TokenType {
   Colon = 'Colon',
+  Comma = 'Comma',
   Const = 'Const',
   EOF = 'EOF',
   Equal = 'Equal',
+  Fn = 'Fn',
   Identifier = 'Identifier',
+  LeftBrace = 'LeftBrace',
+  LeftParen = 'LeftParen',
   Let = 'Let',
   NumberLiteral = 'NumberLiteral',
+  Return = 'Return',
+  RightBrace = 'RightBrace',
+  RightParen = 'RightParen',
   Semicolon = 'Semicolon',
 }

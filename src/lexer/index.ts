@@ -48,11 +48,26 @@ export class Lexer {
       this.advance();
 
       switch (character) {
+        case ',':
+          tokens.push(this.createToken(TokenType.Comma, startIndex, startLine, startColumn));
+          break;
         case ':':
           tokens.push(this.createToken(TokenType.Colon, startIndex, startLine, startColumn));
           break;
         case '=':
           tokens.push(this.createToken(TokenType.Equal, startIndex, startLine, startColumn));
+          break;
+        case '{':
+          tokens.push(this.createToken(TokenType.LeftBrace, startIndex, startLine, startColumn));
+          break;
+        case '(':
+          tokens.push(this.createToken(TokenType.LeftParen, startIndex, startLine, startColumn));
+          break;
+        case '}':
+          tokens.push(this.createToken(TokenType.RightBrace, startIndex, startLine, startColumn));
+          break;
+        case ')':
+          tokens.push(this.createToken(TokenType.RightParen, startIndex, startLine, startColumn));
           break;
         case ';':
           tokens.push(this.createToken(TokenType.Semicolon, startIndex, startLine, startColumn));

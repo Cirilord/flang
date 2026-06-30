@@ -7,6 +7,7 @@
 - Explicit static typing
 - Clear and predictable syntax
 - Spec-driven language evolution
+- Function-based program structure
 
 ## Documentation Structure
 
